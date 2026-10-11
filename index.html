@@ -45,8 +45,8 @@
     .verify-wrap {
       background: var(--surface);
       border-radius: 28px;
-      padding: 52px 44px;
-      max-width: 420px;
+      padding: 40px 32px 32px;
+      max-width: 460px;
       width: 100%;
       text-align: center;
       box-shadow: var(--shadow), 0 1px 3px rgba(0,0,0,0.06);
@@ -61,64 +61,53 @@
       letter-spacing: 0.05em;
       border-radius: 999px;
       padding: 5px 16px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
-    .verify-wrap h2 {
-      font-size: 30px;
-      font-weight: 900;
-      color: var(--text);
-      margin-bottom: 8px;
+    /* ─── 图片旋转验证组件（适配本页浅色主题） ─── */
+    .rc {
+      --rc-accent: var(--accent);
+      --rc-ok: var(--green);
+      --rc-err: var(--red);
+      --rc-text: var(--text);
+      --rc-bg: transparent;
+      --rc-border: transparent;
+      width: 100%; max-width: 100%; margin: 0 auto; padding: 0;
+      text-align: center; color: var(--rc-text);
+      background: var(--rc-bg); border: 0;
+      font-family: inherit; line-height: 1.5;
     }
-
-    .verify-wrap .sub {
-      font-size: 15px;
-      color: var(--text2);
-      margin-bottom: 28px;
+    .rc *, .rc *::before, .rc *::after { box-sizing: border-box; }
+    .rc[hidden] { display: none !important; }
+    .verify-wrap .rc-title { margin: 0 0 14px; font-size: 22px; font-weight: 900; color: var(--text); text-shadow: none; }
+    .rc-steps { list-style: none; margin: 0 0 16px; padding: 0; text-align: left; font-size: 14px; font-weight: 700; color: var(--text2); }
+    .rc-steps li { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+    .rc-steps i { flex: none; width: 1.7em; height: 1.7em; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; font-style: normal; font-weight: 800; text-align: center; line-height: 1.7em; }
+    .rc-tile { position: relative; width: 100%; max-width: 280px; margin: 0 auto; aspect-ratio: 1 / 1; background: #f4f4f4; border-radius: 16px; overflow: hidden; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; -webkit-user-select: none; box-shadow: 0 0 0 3px var(--accent), 0 6px 22px rgba(79,70,229,0.25); }
+    .rc-tile:active { filter: brightness(.92); }
+    .rc-tile:focus-visible { box-shadow: 0 0 0 3px var(--accent2), 0 6px 22px rgba(124,58,237,0.35); }
+    .rc-main { display: block; width: 100%; height: 100%; transition: transform .35s ease; }
+    .rc-thumb { position: absolute; top: 8px; right: 8px; width: 26%; aspect-ratio: 1 / 1; background: #fff; border: 2px solid #43a047; border-radius: 10px; overflow: hidden; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+    .rc-thumb svg { display: block; width: 100%; height: 100%; }
+    .rc-thumb b { position: absolute; left: 0; right: 0; bottom: 0; background: #43a047; color: #fff; font-size: 11px; line-height: 16px; text-align: center; }
+    .rc-hint { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); padding: 3px 12px; background: rgba(0,0,0,.65); color: #fff; font-size: 13px; border-radius: 999px; white-space: nowrap; pointer-events: none; }
+    .rc-ctrl { display: flex; gap: 12px; margin-top: 16px; }
+    .rc button { font: inherit; font-weight: 800; border: 0; border-radius: 14px; cursor: pointer; min-height: 52px; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: transform .1s, filter .1s, opacity .2s; }
+    .verify-wrap .rc-ctrl button { flex: 1; background: var(--surface2); color: var(--text); font-size: 15px; border: 2px solid var(--border); }
+    .verify-wrap .rc-ctrl button:hover { border-color: var(--accent); color: var(--accent); background: #eef2ff; }
+    .verify-wrap .rc-go { width: 100%; margin-top: 12px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; font-size: 17px; box-shadow: 0 4px 16px rgba(79,70,229,0.35); }
+    .rc button:active { transform: scale(.96); filter: brightness(.9); }
+    .rc-busy button, .rc-busy .rc-tile { opacity: .55; pointer-events: none; }
+    .rc-status { min-height: 1.6em; margin: 12px 0 0; font-size: 15px; font-weight: 700; }
+    .rc-status.ok { color: var(--rc-ok); }
+    .rc-status.err { color: var(--rc-err); }
+    .rc-shake { animation: rc-shake .35s; }
+    @keyframes rc-shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+    @media (prefers-reduced-motion: reduce) { .rc-main { transition: none; } .rc-shake { animation: none; } }
+    @media (max-width: 480px) {
+      .verify-wrap { padding: 30px 18px 24px; }
+      .verify-wrap .rc-title { font-size: 19px; }
     }
-
-    #question {
-      font-family: "Nunito", sans-serif;
-      font-size: 42px;
-      font-weight: 900;
-      color: var(--accent);
-      margin-bottom: 24px;
-      letter-spacing: 0.03em;
-    }
-
-    .verify-wrap input {
-      width: 120px;
-      padding: 14px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: 700;
-      border-radius: 14px;
-      border: 2px solid var(--border);
-      background: var(--surface2);
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .verify-wrap input:focus { border-color: var(--accent); }
-
-    .verify-wrap .submit-btn {
-      display: block;
-      width: 100%;
-      margin-top: 18px;
-      padding: 16px;
-      border: none;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #fff;
-      font-size: 17px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s;
-      box-shadow: 0 4px 16px rgba(79,70,229,0.35);
-    }
-
-    .verify-wrap .submit-btn:hover { opacity: 0.92; transform: translateY(-1px); }
 
     /* ─── 弹窗 ─── */
     #noticeOverlay {
@@ -386,14 +375,10 @@
 </head>
 <body>
 
-  <!-- 验证框 -->
+  <!-- 验证框：图片旋转验证 -->
   <div class="verify-wrap" id="verifyBox">
     <div class="v-badge">FANGQI.CC</div>
-    <h2>访问验证</h2>
-    <div class="sub">请回答以下问题继续进入</div>
-    <div id="question"></div>
-    <input type="number" id="answer" placeholder="?" />
-    <button class="submit-btn" onclick="checkAnswer()">确认进入 →</button>
+    <div id="rotate-captcha"></div>
   </div>
 
   <!-- 无痕模式提示弹窗 -->
@@ -482,6 +467,154 @@
     </div>
   </div>
 
+  <!-- ═══════════ 图片旋转验证组件 ═══════════ -->
+  <script>
+  (function (global) {
+    'use strict';
+
+    /* 12 个内置 SVG 图案（均以“正立”为设计方向，顶部特征明确） */
+    var SHAPES = [
+      '<polygon points="50,12 12,48 88,48"/><rect x="22" y="48" width="56" height="40"/><rect x="70" y="22" width="8" height="18"/><rect x="44" y="62" width="12" height="26" fill="#fff"/>',
+      '<path d="M50 8C66 24 68 46 62 70L38 70C32 46 34 24 50 8Z"/><polygon points="38,58 24,78 38,72"/><polygon points="62,58 76,78 62,72"/><circle cx="50" cy="36" r="7" fill="#fff"/><polygon points="42,72 58,72 50,94" fill="#ff9800"/>',
+      '<rect x="45" y="66" width="10" height="24" fill="#6d4c41"/><polygon points="50,10 22,44 78,44"/><polygon points="50,28 16,66 84,66"/>',
+      '<path d="M10 52A40 40 0 0 1 90 52Z"/><path d="M50 52V80a8 8 0 0 1-16 0" fill="none" stroke="#444" stroke-width="5" stroke-linecap="round"/>',
+      '<rect x="28" y="10" width="6" height="80" fill="#555"/><polygon points="34,12 82,28 34,44"/><rect x="18" y="86" width="26" height="6" fill="#555"/>',
+      '<circle cx="50" cy="58" r="30"/><polygon points="22,38 28,8 46,28"/><polygon points="78,38 72,8 54,28"/><circle cx="40" cy="54" r="4" fill="#fff"/><circle cx="60" cy="54" r="4" fill="#fff"/><polygon points="45,66 55,66 50,72" fill="#fff"/>',
+      '<rect x="38" y="52" width="24" height="36" rx="4" fill="#e8d9bd"/><path d="M10 56A40 38 0 0 1 90 56Z"/><circle cx="34" cy="40" r="6" fill="#fff"/><circle cx="58" cy="32" r="5" fill="#fff"/><circle cx="72" cy="46" r="4" fill="#fff"/>',
+      '<polygon points="32,52 68,52 50,92" fill="#d9a066"/><circle cx="50" cy="38" r="22"/><circle cx="50" cy="12" r="6" fill="#e53935"/>',
+      '<path d="M12 70H88L76 88H24Z" fill="#555"/><rect x="48" y="10" width="4" height="60" fill="#555"/><polygon points="54,14 54,66 84,66"/><polygon points="46,26 46,66 22,66" fill="#ffd54f"/>',
+      '<circle cx="50" cy="38" r="26"/><rect x="38" y="62" width="24" height="8" fill="#666"/><rect x="40" y="72" width="20" height="8" fill="#666"/><rect x="44" y="82" width="12" height="7" fill="#666"/>',
+      '<path d="M50 6C61 20 63 28 50 36C37 28 39 20 50 6Z" fill="#ff9800"/><rect x="48" y="34" width="4" height="9" fill="#333"/><rect x="32" y="43" width="36" height="46" rx="3"/>',
+      '<polygon points="14,70 12,32 34,52 50,24 66,52 88,32 86,70"/><rect x="14" y="72" width="72" height="14" rx="3" fill="#ffb300"/><circle cx="12" cy="30" r="5" fill="#ffb300"/><circle cx="50" cy="22" r="5" fill="#ffb300"/><circle cx="88" cy="30" r="5" fill="#ffb300"/>'
+    ];
+    var COLORS = ['#e53935', '#1e88e5', '#43a047', '#8e24aa', '#f57c00', '#00897b'];
+    var TARGET = 0; // 目标方向固定为正立（0°）
+
+    var TEMPLATE = [
+      '<h2 class="rc-title">把图片转正，才能继续</h2>',
+      '<ol class="rc-steps">',
+      '<li><i>1</i><span>点下方 ↺ ↻ 按钮（或直接点图片），把图片转到和右上角小图一样</span></li>',
+      '<li><i>2</i><span>点「验证并继续」</span></li>',
+      '</ol>',
+      '<div class="rc-tile" role="button" tabindex="0" aria-label="待验证图片，点击顺时针旋转 90 度">',
+      '<svg class="rc-main" viewBox="-6 -6 112 112"></svg>',
+      '<div class="rc-thumb"><svg class="rc-ref" viewBox="-6 -6 112 112"></svg><b>正确方向</b></div>',
+      '<span class="rc-hint">↻ 点图片可旋转</span>',
+      '</div>',
+      '<div class="rc-ctrl">',
+      '<button type="button" class="rc-left" aria-label="向左旋转">↺ 向左转</button>',
+      '<button type="button" class="rc-right" aria-label="向右旋转">向右转 ↻</button>',
+      '</div>',
+      '<button type="button" class="rc-go">验证并继续</button>',
+      '<p class="rc-status" role="status" aria-live="polite"></p>'
+    ].join('');
+
+    /* 安全随机整数 [0, n) */
+    function rnd(n) {
+      if (global.crypto && global.crypto.getRandomValues) {
+        var a = new Uint32Array(1); global.crypto.getRandomValues(a); return a[0] % n;
+      }
+      return Math.floor(Math.random() * n);
+    }
+    function norm(d) { return ((d % 360) + 360) % 360; }
+
+    function mount(container, opts) {
+      if (typeof container === 'string') container = document.querySelector(container);
+      if (!container) throw new Error('RotateCaptcha: 找不到容器');
+      opts = opts || {};
+      var MAX_FAILS = opts.maxFails || 5;
+      var COOLDOWN = opts.cooldownMs || 5000;
+      var hideOnSuccess = opts.hideOnSuccess !== false;
+
+      container.className += ' rc';
+      container.hidden = false;
+      container.innerHTML = TEMPLATE;
+      var q = function (s) { return container.querySelector(s); };
+      var tile = q('.rc-tile'), rotImg = q('.rc-main'), refImg = q('.rc-ref'), statusEl = q('.rc-status');
+
+      var deg = 0;
+      var locked = false, done = false, destroyed = false;
+      var fails = 0, lastShape = -1, timers = [];
+
+      function later(fn, ms) { timers.push(setTimeout(function () { if (!destroyed) fn(); }, ms)); }
+      function setStatus(msg, cls) { statusEl.textContent = msg || ''; statusEl.className = 'rc-status ' + (cls || ''); }
+      function apply(el, d, animate) {
+        if (!animate) el.style.transition = 'none';
+        el.style.transform = 'rotate(' + d + 'deg)';
+        if (!animate) { void el.getBoundingClientRect(); el.style.transition = ''; }
+      }
+
+      /* 生成新题：随机图案 + 随机颜色 + 随机初始角度（90/180/270，不会已经正立） */
+      function newQuestion() {
+        var s; do { s = rnd(SHAPES.length); } while (s === lastShape);
+        lastShape = s;
+        var html = '<g fill="' + COLORS[rnd(COLORS.length)] + '">' + SHAPES[s] + '</g>';
+        refImg.innerHTML = html;
+        rotImg.innerHTML = html;
+        deg = (rnd(3) + 1) * 90;
+        apply(rotImg, deg, false);
+        setStatus('');
+        locked = false;
+        container.className = container.className.replace(' rc-busy', '');
+      }
+
+      function rotate(step) {
+        if (locked || done) return;
+        deg += step;
+        apply(rotImg, deg, true);
+        setStatus('');
+      }
+
+      function verify() {
+        if (locked || done) return;
+        locked = true;
+        container.className += ' rc-busy';
+        setStatus('验证中…');
+        later(function () {
+          if (norm(deg) === TARGET) {
+            done = true;
+            setStatus('✓ 验证成功', 'ok');
+            later(function () {
+              if (hideOnSuccess) container.hidden = true;
+              try { container.dispatchEvent(new CustomEvent('rotatecaptcha:success', { bubbles: true })); } catch (e) {}
+              if (typeof opts.onSuccess === 'function') opts.onSuccess();
+            }, 600);
+          } else {
+            fails++;
+            container.className = container.className.replace(' rc-shake', '');
+            void container.offsetWidth;
+            container.className += ' rc-shake';
+            if (fails >= MAX_FAILS) {
+              setStatus('✗ 尝试次数过多，请 ' + (COOLDOWN / 1000) + ' 秒后重试', 'err');
+              later(function () { fails = 0; newQuestion(); }, COOLDOWN);
+            } else {
+              setStatus('✗ 方向不对，已换一题，再试一次', 'err');
+              later(newQuestion, 900);
+            }
+          }
+        }, 300);
+      }
+
+      q('.rc-left').addEventListener('click', function () { rotate(-90); });
+      q('.rc-right').addEventListener('click', function () { rotate(90); });
+      tile.addEventListener('click', function () { rotate(90); });
+      tile.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); rotate(90); }
+      });
+      q('.rc-go').addEventListener('click', verify);
+      newQuestion();
+
+      return {
+        reset: function () { done = false; fails = 0; container.hidden = false; newQuestion(); },
+        destroy: function () { destroyed = true; timers.forEach(clearTimeout); container.innerHTML = ''; }
+      };
+    }
+
+    global.RotateCaptcha = { mount: mount };
+  })(window);
+  </script>
+
+  <!-- ═══════════ 页面逻辑 ═══════════ -->
   <script>
     // 防爬邮箱
     const ea = "new" + "@" + "fangqi.cc";
@@ -548,25 +681,14 @@
       }
     }
 
-    // 验证
-    let n1, n2;
-    function genQ() {
-      n1 = Math.floor(Math.random()*10+1);
-      n2 = Math.floor(Math.random()*10+1);
-      document.getElementById("question").textContent = `${n1} + ${n2} = ?`;
-    }
-    genQ();
-
-    function checkAnswer() {
-      if (parseInt(document.getElementById("answer").value) === n1+n2) {
+    // 图片旋转验证：通过后进入无痕模式提示弹窗
+    RotateCaptcha.mount('#rotate-captcha', {
+      hideOnSuccess: false,
+      onSuccess: function () {
         document.getElementById("verifyBox").style.display = "none";
         document.getElementById("noticeOverlay").style.display = "flex";
-      } else {
-        alert("答案错误，请重试。");
-        genQ(); document.getElementById("answer").value = "";
       }
-    }
-    document.getElementById("answer").addEventListener("keydown", e => { if(e.key==="Enter") checkAnswer(); });
+    });
 
     // 弹窗
     function onCheckChange() {
